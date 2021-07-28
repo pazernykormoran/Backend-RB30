@@ -31,13 +31,13 @@ namespace RetireBefore30.Services
             {
                 _dbContext.Transactions.Remove(transactionToBeRemoved);
             }
-            var result = await _dbContext.SaveChangesAsync();
-            return result > 0;
+            var deleted = await _dbContext.SaveChangesAsync();
+            return deleted > 0;
         }
 
         public async Task<Transaction> getTransactionById(int transactionId)
         {
-            return await _dbContext.Transactions.FindAsync(transactionId);
+            return await _dbContext.Transactions.SingleOrDefaultAsync(x => x.Id == transactionId);
         }
 
         public async Task<List<Transaction>> getTransactions()
@@ -47,12 +47,16 @@ namespace RetireBefore30.Services
 
         public async Task<bool> updateTransaction(Transaction transactionToBeUpdated)
         {
-            if (await getTransactionById(transactionToBeUpdated.Id) != null)
+
+            _dbContext.Transactions.Update(transactionToBeUpdated);
+
+            var exists = await getTransactionById(transactionToBeUpdated.Id) == null;
+            if (!exists)
             {
-                _dbContext.Transactions.Update(transactionToBeUpdated);
+                return false;
             }
-            var result = await _dbContext.SaveChangesAsync();
-            return result > 0;
+            var updated = await _dbContext.SaveChangesAsync();
+            return updated > 0;
         }
     }
 }

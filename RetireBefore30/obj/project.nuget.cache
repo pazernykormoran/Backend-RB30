@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kYgq+RfRw/zHMUVcIpArVwchYvhuj31LcRJMUOX40eAVy+ZhsW/v+4AiBjVs6LVbpUxukDXbuzr8UEyMhL5BuQ==",
+  "dgSpecHash": "Au8iQRQ/+98ju3yaDc+JSuiXiFCLM/oYPVN9uAr0rjnDmdQ1Q26bHkMT0JQTGGnwqRQLYZIPbUCTij35+5/0FA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Damian\\Desktop\\TreningC#\\RetireBefore30\\RetireBefore30\\RetireBefore30.csproj",
+  "projectFilePath": "C:\\Users\\Damian\\Desktop\\Backend-RB30\\RetireBefore30\\RetireBefore30.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Damian\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Damian\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

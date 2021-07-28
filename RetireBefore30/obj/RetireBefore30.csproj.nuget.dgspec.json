@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Damian\\Desktop\\TreningC#\\RetireBefore30\\RetireBefore30\\RetireBefore30.csproj": {}
+    "C:\\Users\\Damian\\Desktop\\Backend-RB30\\RetireBefore30\\RetireBefore30.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Damian\\Desktop\\TreningC#\\RetireBefore30\\RetireBefore30\\RetireBefore30.csproj": {
+    "C:\\Users\\Damian\\Desktop\\Backend-RB30\\RetireBefore30\\RetireBefore30.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Damian\\Desktop\\TreningC#\\RetireBefore30\\RetireBefore30\\RetireBefore30.csproj",
+        "projectUniqueName": "C:\\Users\\Damian\\Desktop\\Backend-RB30\\RetireBefore30\\RetireBefore30.csproj",
         "projectName": "RetireBefore30",
-        "projectPath": "C:\\Users\\Damian\\Desktop\\TreningC#\\RetireBefore30\\RetireBefore30\\RetireBefore30.csproj",
+        "projectPath": "C:\\Users\\Damian\\Desktop\\Backend-RB30\\RetireBefore30\\RetireBefore30.csproj",
         "packagesPath": "C:\\Users\\Damian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Damian\\Desktop\\TreningC#\\RetireBefore30\\RetireBefore30\\obj\\",
+        "outputPath": "C:\\Users\\Damian\\Desktop\\Backend-RB30\\RetireBefore30\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Damian\\AppData\\Roaming\\NuGet\\NuGet.Config",
