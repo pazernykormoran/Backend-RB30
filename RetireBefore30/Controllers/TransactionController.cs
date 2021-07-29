@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace RetireBefore30.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class TransactionController : Controller
     {
         private readonly ITransactionService _transactionService;
@@ -18,7 +20,7 @@ namespace RetireBefore30.Controllers
             _transactionService = transactionService;
         }
 
-        [HttpGet("api/v1/transactions/{transactionId}")]
+        [HttpGet("v1/transactions/{transactionId}")]
         public async Task<IActionResult> getTransactionById([FromRoute]int transactionId)
         {
             var transaction = await _transactionService.getTransactionById(transactionId);
@@ -31,13 +33,13 @@ namespace RetireBefore30.Controllers
             return Ok(transaction);
         }
 
-        [HttpGet("api/v1/transactions")]
+        [HttpGet("v1/transactions")]
         public async Task<IActionResult> getTransactions()
         {
             return Ok(await _transactionService.getTransactions());
         }
 
-        [HttpDelete("api/v1/transactions/{transactionId}")]
+        [HttpDelete("v1/transactions/{transactionId}")]
         public async Task<IActionResult> deleteTransaction([FromRoute] int transactionId)
         {
             var wasDeleted = await _transactionService.deleteTransaction(transactionId);
@@ -50,7 +52,7 @@ namespace RetireBefore30.Controllers
             return Ok();
         }
 
-        [HttpPost("api/v1/transactions")]
+        [HttpPost("v1/transactions")]
         public async Task<IActionResult> createTransaction([FromBody] TransactionRequest request)
         {
             var transaction = new Transaction { Test = request.Test };
@@ -60,8 +62,8 @@ namespace RetireBefore30.Controllers
             return Ok(transaction);
         }
 
-        [HttpPut("api/v1/transactions")]
-        public async Task<IActionResult> updateTransaction([FromBody] TransactionRequest request)
+        [HttpPut("v1/transactions")]
+        public async Task<IActionResult> updateTransaction(TransactionRequest request)
         {
             var transaction = new Transaction { Id = request.TransactionId, Test = request.Test };
 
