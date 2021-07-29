@@ -60,10 +60,10 @@ namespace RetireBefore30.Controllers
             return Ok(transaction);
         }
 
-        [HttpPut("api/v1/transactions/{transactionId}")]
-        public async Task<IActionResult> updateTransaction([FromRoute] int transactionId, [FromBody] TransactionRequest request)
+        [HttpPut("api/v1/transactions")]
+        public async Task<IActionResult> updateTransaction([FromBody] TransactionRequest request)
         {
-            var transaction = new Transaction { Id = transactionId, Test = request.Test };
+            var transaction = new Transaction { Id = request.TransactionId, Test = request.Test };
 
             var wasUpdated = await _transactionService.updateTransaction(transaction);
 

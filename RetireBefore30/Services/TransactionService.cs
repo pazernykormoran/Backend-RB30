@@ -47,16 +47,18 @@ namespace RetireBefore30.Services
 
         public async Task<bool> updateTransaction(Transaction transactionToBeUpdated)
         {
+            var transactionFromDatabase = await getTransactionById(transactionToBeUpdated.Id);
 
-            _dbContext.Transactions.Update(transactionToBeUpdated);
-
-            var exists = await getTransactionById(transactionToBeUpdated.Id) == null;
-            if (!exists)
+            if (transactionFromDatabase == null)
             {
                 return false;
             }
-            var updated = await _dbContext.SaveChangesAsync();
-            return updated > 0;
+
+            _dbContext.Entry(transactionFromDatabase).State = EntityState.Detached;
+            _dbContext.Transactions.Update(transactionToBeUpdated);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }

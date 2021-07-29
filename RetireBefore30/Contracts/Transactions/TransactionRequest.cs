@@ -7,6 +7,7 @@ namespace RetireBefore30.Contracts.Transactions
 {
     public class TransactionRequest
     {
+        public int TransactionId { get; set; }
         public string Test { get; set; }
     }
 }
