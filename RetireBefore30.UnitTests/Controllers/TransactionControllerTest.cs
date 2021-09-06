@@ -24,13 +24,19 @@ namespace RetireBefore30.UnitTests.Controllers
             {
                 new Models.Transaction 
                 {
-                    Id = 1,
-                    Test = "8h i po robocie"
+                    Direction = 1,
+                    Price = 11.11,
+                    MoneyState = 123.33,
+                    Amount = 1,
+                    Timestamp = new System.DateTime()
                 },
                 new Models.Transaction
                 {
-                    Id = 2,
-                    Test = "Test"
+                    Direction = 1,
+                    Price = 11.11,
+                    MoneyState = 123.33,
+                    Amount = 1,
+                    Timestamp = new System.DateTime()
                 }
             };
 

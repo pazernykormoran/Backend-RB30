@@ -13,5 +13,9 @@ namespace RetireBefore30.Data
 
         }
         public DbSet<RetireBefore30.Models.Transaction> Transactions { get; set; }
+        public DbSet<RetireBefore30.Models.Strategy> Strategies { get; set; }
+        public DbSet<RetireBefore30.Models.StrategyInstance> StrategyInstances { get; set; }
+        public DbSet<RetireBefore30.Models.Config> Configs { get; set; }
+        public DbSet<RetireBefore30.Models.Ping> Pings { get; set; }
     }
 }

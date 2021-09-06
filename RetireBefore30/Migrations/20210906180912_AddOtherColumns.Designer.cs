@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RetireBefore30.Data;
 
 namespace RetireBefore30.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210906180912_AddOtherColumns")]
+    partial class AddOtherColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,27 +121,10 @@ namespace RetireBefore30.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Direction")
-                        .HasColumnType("int");
-
-                    b.Property<double>("MoneyState")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("StrategyInstanceId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Test")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StrategyInstanceId");
 
                     b.ToTable("Transactions");
                 });
@@ -177,17 +162,6 @@ namespace RetireBefore30.Migrations
                     b.Navigation("Strategy");
                 });
 
-            modelBuilder.Entity("RetireBefore30.Models.Transaction", b =>
-                {
-                    b.HasOne("RetireBefore30.Models.StrategyInstance", "StrategyInstance")
-                        .WithMany("Transactions")
-                        .HasForeignKey("StrategyInstanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StrategyInstance");
-                });
-
             modelBuilder.Entity("RetireBefore30.Models.Strategy", b =>
                 {
                     b.Navigation("StrategyInstances");
@@ -198,8 +172,6 @@ namespace RetireBefore30.Migrations
                     b.Navigation("Configs");
 
                     b.Navigation("Pings");
-
-                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
