@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace RetireBefore30.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class TransactionController : Controller
     {
         private readonly ITransactionService _transactionService;
@@ -68,7 +68,7 @@ namespace RetireBefore30.Controllers
                 Price = request.Price,
                 MoneyState = request.MoneyState,
                 Amount = request.Amount,
-                Timestamp = new System.DateTime(),
+                Timestamp = DateTime.Now,
                 StrategyInstanceId = request.StrategyInstanceId
             };
 
@@ -86,7 +86,7 @@ namespace RetireBefore30.Controllers
                 Price = request.Price,
                 MoneyState = request.MoneyState,
                 Amount = request.Amount,
-                Timestamp = new System.DateTime(),
+                Timestamp = DateTime.Now,
                 StrategyInstanceId = request.StrategyInstanceId
             };
 

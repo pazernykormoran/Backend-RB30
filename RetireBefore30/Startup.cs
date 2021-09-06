@@ -33,7 +33,10 @@ namespace RetireBefore30
                 Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<ITransactionService, TransactionService>();
-
+            services.AddScoped<IStrategyService, StrategyService>();
+            services.AddScoped<IStrategyInstanceService, StrategyInstanceService>();
+            services.AddScoped<IConfigService, ConfigService>();
+            services.AddScoped<IPingService, PingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
