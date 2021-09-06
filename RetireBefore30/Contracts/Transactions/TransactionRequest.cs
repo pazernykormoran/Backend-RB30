@@ -11,7 +11,6 @@ namespace RetireBefore30.Contracts.Transactions
         public float Price { get; set; }
         public float MoneyState { get; set; }
         public float Amount { get; set; }
-        public DateTime Timestamp { get; set; }
 
         // Navigation Properties
         public int StrategyInstanceId { get; set; }

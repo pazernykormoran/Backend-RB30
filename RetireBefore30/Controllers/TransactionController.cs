@@ -68,7 +68,8 @@ namespace RetireBefore30.Controllers
                 Price = request.Price,
                 MoneyState = request.MoneyState,
                 Amount = request.Amount,
-                Timestamp = request.Timestamp
+                Timestamp = new System.DateTime(),
+                StrategyInstanceId = request.StrategyInstanceId
             };
 
            await _transactionService.createTransaction(transaction);
@@ -85,7 +86,8 @@ namespace RetireBefore30.Controllers
                 Price = request.Price,
                 MoneyState = request.MoneyState,
                 Amount = request.Amount,
-                Timestamp = request.Timestamp
+                Timestamp = new System.DateTime(),
+                StrategyInstanceId = request.StrategyInstanceId
             };
 
             var wasUpdated = await _transactionService.updateTransaction(transaction);
