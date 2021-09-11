@@ -40,9 +40,9 @@ namespace RetireBefore30.Services
             return await _dbContext.Configs.SingleOrDefaultAsync(x => x.Id == configId);
         }
 
-        public async Task<List<Config>> getConfigs()
+        public async Task<List<Config>> getConfigs(int instanceId)
         {
-            return await _dbContext.Configs.ToListAsync();
+            return await _dbContext.Configs.Where(x => x.StrategyInstanceId == instanceId).ToListAsync();
         }
 
         public async Task<bool> updateConfig(Config config)

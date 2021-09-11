@@ -10,7 +10,7 @@ namespace RetireBefore30.Services
     {
         public Task<bool> createConfig(Config config);
         public Task<Config> getConfigById(int configId);
-        public Task<List<Config>> getConfigs();
+        public Task<List<Config>> getConfigs(int instanceId);
         public Task<bool> updateConfig(Config config);
         public Task<bool> deleteConfig(int configId);
 

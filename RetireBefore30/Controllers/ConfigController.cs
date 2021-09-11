@@ -35,9 +35,10 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpGet("v1/configs")]
-        public async Task<IActionResult> getConfigs()
+        public async Task<IActionResult> getConfigs([FromQuery] int instanceId = -1)
         {
-            return Ok(await _configService.getConfigs());
+            if (instanceId == -1) return BadRequest("No instanceId in request");
+            return Ok(await _configService.getConfigs(instanceId));
         }
 
         [HttpDelete("v1/configs/{configId}")]
@@ -50,17 +51,17 @@ namespace RetireBefore30.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok("Config deleted");
         }
 
         [HttpPost("v1/configs")]
-        public async Task<IActionResult> createConfig([FromBody] ConfigRequest request)
+        public async Task<IActionResult> createConfig([FromBody] ConfigsPostRequest request)
         {
             var config = new Config
             { 
-                Name = request.Name,
-                Value = request.Value,
-                StrategyInstanceId = request.StrategyInstanceId
+                Name = request.name,
+                Value = request.value,
+                StrategyInstanceId = request.instanceId?? -1
             };
 
            await _configService.createConfig(config);
@@ -69,13 +70,14 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpPut("v1/configs")]
-        public async Task<IActionResult> updateConfig(ConfigRequest request)
+        public async Task<IActionResult> updateConfig(ConfigsPutRequest request)
         {
             var config = new Config
             {
-                Name = request.Name,
-                Value = request.Value,
-                StrategyInstanceId = request.StrategyInstanceId
+                Id = request.id?? -1,
+                Name = request.name,
+                Value = request.value,
+                StrategyInstanceId = request.instanceId ?? -1
             };
 
             var wasUpdated = await _configService.updateConfig(config);
