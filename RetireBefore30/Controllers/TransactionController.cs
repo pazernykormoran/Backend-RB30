@@ -42,9 +42,15 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpGet("v1/transactions")]
-        public async Task<IActionResult> getTransactions()
+        public async Task<IActionResult> getTransactions([FromQuery] TransactionsGetRequest request)
         {
-            return Ok(await _transactionService.getTransactions());
+            DateTime fromDate;
+            DateTime toDate;
+            if(request.from == -1) fromDate = DateTimeOffset.FromUnixTimeMilliseconds(0).UtcDateTime;
+            else fromDate = DateTimeOffset.FromUnixTimeMilliseconds(request.from).UtcDateTime;
+            if (request.to == -1) toDate = DateTime.Now;
+            else toDate = DateTimeOffset.FromUnixTimeMilliseconds(request.to).UtcDateTime;
+            return Ok(await _transactionService.getTransactions(request.instanceId??0, fromDate, toDate));
         }
 
         [HttpDelete("v1/transactions/{transactionId}")]
@@ -57,37 +63,39 @@ namespace RetireBefore30.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok("Transaction deleted");
         }
 
         [HttpPost("v1/transactions")]
-        public async Task<IActionResult> createTransaction([FromBody] TransactionRequest request)
+        public async Task<IActionResult> createTransaction([FromBody] TransactionPostRequest request)
         {
+            
             var transaction = new Transaction { 
-                Direction = request.Direction,
-                Price = request.Price,
-                MoneyState = request.MoneyState,
-                Amount = request.Amount,
-                Timestamp = DateTime.Now,
-                StrategyInstanceId = request.StrategyInstanceId
+                Direction = request.Direction ?? -1,
+                Price = request.Price ?? -1,
+                MoneyState = request.MoneyState ?? -1,
+                Amount = request.Amount ?? -1,
+                Timestamp =  DateTimeOffset.FromUnixTimeMilliseconds(request.Timestamp?? new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds()).UtcDateTime,
+                StrategyInstanceId = request.StrategyInstanceId ?? -1
             };
 
-           await _transactionService.createTransaction(transaction);
+            await _transactionService.createTransaction(transaction);
           
             return Ok(transaction);
         }
 
         [HttpPut("v1/transactions")]
-        public async Task<IActionResult> updateTransaction(TransactionRequest request)
+        public async Task<IActionResult> updateTransaction(TransactionPutRequest request)
         {
             var transaction = new Transaction
             {
-                Direction = request.Direction,
-                Price = request.Price,
-                MoneyState = request.MoneyState,
-                Amount = request.Amount,
-                Timestamp = DateTime.Now,
-                StrategyInstanceId = request.StrategyInstanceId
+                Id = request.Id?? -1,
+                Direction = request.Direction ?? -1,
+                Price = request.Price ?? -1,
+                MoneyState = request.MoneyState ?? -1,
+                Amount = request.Amount ?? -1,
+                Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(request.Timestamp??0).UtcDateTime,
+                StrategyInstanceId = request.StrategyInstanceId ?? -1
             };
 
             var wasUpdated = await _transactionService.updateTransaction(transaction);
