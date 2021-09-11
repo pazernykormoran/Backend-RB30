@@ -50,15 +50,15 @@ namespace RetireBefore30.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok("Strategy deleted");
         }
 
         [HttpPost("v1/strategies")]
-        public async Task<IActionResult> createStrategy([FromBody] StrategyRequest request)
+        public async Task<IActionResult> createStrategy([FromBody] StrategiesPostRequest request)
         {
             var strategy = new Strategy { 
-                Name = request.Name,
-                CreateDate = DateTime.Now
+                Name = request.name,
+                CreateDate = DateTimeOffset.FromUnixTimeMilliseconds(request.createTimestamp ?? new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds()).UtcDateTime,
             };
 
            await _strategyService.createStrategy(strategy);
@@ -67,12 +67,13 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpPut("v1/strategies")]
-        public async Task<IActionResult> updateStrategy(StrategyRequest request)
+        public async Task<IActionResult> updateStrategy(StrategiesPutRequest request)
         {
             var strategy = new Strategy
             {
-                Name = request.Name,
-                CreateDate = DateTime.Now
+                Id = request.id??-1,
+                Name = request.name,
+                CreateDate = DateTimeOffset.FromUnixTimeMilliseconds(request.createTimestamp ?? 0).UtcDateTime,
             };
 
             var wasUpdated = await _strategyService.updateStrategy(strategy);
