@@ -40,9 +40,9 @@ namespace RetireBefore30.Services
             return await _dbContext.StrategyInstances.SingleOrDefaultAsync(x => x.Id == strategyInstanceId);
         }
 
-        public async Task<List<StrategyInstance>> getStrategyInstances()
+        public async Task<List<StrategyInstance>> getStrategyInstances(int strategyId)
         {
-            return await _dbContext.StrategyInstances.ToListAsync();
+            return await _dbContext.StrategyInstances.Where(x => x.StrategyId == strategyId).ToListAsync();
         }
 
         public async Task<bool> updateStrategyInstance(StrategyInstance strategyInstance)

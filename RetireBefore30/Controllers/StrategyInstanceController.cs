@@ -35,9 +35,10 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpGet("v1/instances")]
-        public async Task<IActionResult> getStrategyInstances()
+        public async Task<IActionResult> getStrategyInstances([FromQuery] int strategyId = -1)
         {
-            return Ok(await _strategyInstanceService.getStrategyInstances());
+            if (strategyId == -1) return BadRequest("No strategyId in request");
+            return Ok(await _strategyInstanceService.getStrategyInstances(strategyId));
         }
 
         [HttpDelete("v1/instances/{instanceId}")]
@@ -50,19 +51,19 @@ namespace RetireBefore30.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok("Strategy instance deleted");
         }
 
         [HttpPost("v1/instances")]
-        public async Task<IActionResult> createStrategyInstance([FromBody] StrategyInstanceRequest request)
+        public async Task<IActionResult> createStrategyInstance([FromBody] StrategyInstancesPostRequest request)
         {
             var strategyInstance = new StrategyInstance
             { 
-                Name = request.Name,
-                CreateDate = DateTime.Now,
-                Type = request.Type,
-                Instrument = request.Instrument,
-                StrategyId = request.StrategyId
+                Name = request.name,
+                CreateDate = DateTimeOffset.FromUnixTimeMilliseconds(request.createTimestamp ?? new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds()).UtcDateTime,
+                Type = request.type??-1,
+                Instrument = request.instrument,
+                StrategyId = request.strategyId??-1
             };
 
            await _strategyInstanceService.createStrategyInstance(strategyInstance);
@@ -71,15 +72,16 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpPut("v1/instances")]
-        public async Task<IActionResult> updateStrategyInstance(StrategyInstanceRequest request)
+        public async Task<IActionResult> updateStrategyInstance(StrategyInstancesPutRequest request)
         {
             var strategyInstance = new StrategyInstance
             {
-                Name = request.Name,
-                CreateDate = DateTime.Now,
-                Type = request.Type,
-                Instrument = request.Instrument,
-                StrategyId = request.StrategyId
+                Id = request.id ?? -1,
+                Name = request.name,
+                CreateDate = DateTimeOffset.FromUnixTimeMilliseconds(request.createTimestamp ?? new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds()).UtcDateTime,
+                Type = request.type ?? -1,
+                Instrument = request.instrument,
+                StrategyId = request.strategyId ?? -1
             };
 
             var wasUpdated = await _strategyInstanceService.updateStrategyInstance(strategyInstance);

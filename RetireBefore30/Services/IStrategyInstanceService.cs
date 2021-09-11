@@ -10,7 +10,7 @@ namespace RetireBefore30.Services
     {
         public Task<bool> createStrategyInstance(StrategyInstance strategyInstance);
         public Task<StrategyInstance> getStrategyInstanceById(int strategyInstanceId);
-        public Task<List<StrategyInstance>> getStrategyInstances();
+        public Task<List<StrategyInstance>> getStrategyInstances(int strategyId);
         public Task<bool> updateStrategyInstance(StrategyInstance strategyInstance);
         public Task<bool> deleteStrategyInstance(int strategyInstanceId);
 
