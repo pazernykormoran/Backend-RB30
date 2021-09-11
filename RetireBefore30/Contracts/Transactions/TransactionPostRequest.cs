@@ -9,18 +9,18 @@ namespace RetireBefore30.Contracts.Transactions
     public class TransactionPostRequest
     {
         [Required]
-        public int? Direction { get; set; }
+        public int? direction { get; set; }
         [Required]
-        public float? Price { get; set; }
+        public float? price { get; set; }
         [Required]
-        public float? MoneyState { get; set; }
+        public float? moneyState { get; set; }
         [Required]
-        public float? Amount { get; set; }
+        public float? amount { get; set; }
 
-        public long? Timestamp { get; set; } 
+        public long? timestamp { get; set; } 
 
         // Navigation Properties
         [Required]
-        public int? StrategyInstanceId { get; set; }
+        public int? instanceId { get; set; }
     }
 }

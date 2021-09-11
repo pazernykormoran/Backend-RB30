@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RetireBefore30.Contracts.Strategies
+namespace RetireBefore30.Contracts.StrategyInstances
 {
     public class StrategyInstanceRequest
     {

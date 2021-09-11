@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetireBefore30.Contracts.Strategies;
+using RetireBefore30.Contracts.Pings;
 using RetireBefore30.Models;
 using RetireBefore30.Services;
 using System;
@@ -35,9 +35,16 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpGet("v1/pings")]
-        public async Task<IActionResult> getPings()
+        public async Task<IActionResult> getPings([FromQuery] PingsGetRequest request)
         {
-            return Ok(await _pingService.getPings());
+            DateTime fromDate;
+            DateTime toDate;
+            if (request.from == -1) fromDate = DateTimeOffset.FromUnixTimeMilliseconds(0).UtcDateTime;
+            else fromDate = DateTimeOffset.FromUnixTimeMilliseconds(request.from).UtcDateTime;
+            if (request.to == -1) toDate = DateTime.Now;
+            else toDate = DateTimeOffset.FromUnixTimeMilliseconds(request.to).UtcDateTime;
+            return Ok(await _pingService.getPings(request.instanceId ?? 0, fromDate, toDate));
+
         }
 
         [HttpDelete("v1/pings/{pingId}")]
@@ -50,17 +57,17 @@ namespace RetireBefore30.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok("Ping deleted");
         }
 
         [HttpPost("v1/pings")]
-        public async Task<IActionResult> createPing([FromBody] PingRequest request)
+        public async Task<IActionResult> createPing([FromBody] PingsPostRequest request)
         {
             var ping = new Ping
             { 
-                Timestamp = DateTime.Now,
-                State = request.State,
-                StrategyInstanceId = request.StrategyInstanceId
+                Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(request.timestamp ?? new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds()).UtcDateTime,
+                State = request.state?? -1,
+                StrategyInstanceId = request.instanceId??-1
             };
 
            await _pingService.createPing(ping);
@@ -69,13 +76,14 @@ namespace RetireBefore30.Controllers
         }
 
         [HttpPut("v1/pings")]
-        public async Task<IActionResult> updatePing(PingRequest request)
+        public async Task<IActionResult> updatePing(PingsPutRequest request)
         {
             var ping = new Ping
             {
-                Timestamp = DateTime.Now,
-                State = request.State,
-                StrategyInstanceId = request.StrategyInstanceId
+                Id = request.id?? -1,
+                Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(request.timestamp ?? 0).UtcDateTime,
+                State = request.state ?? -1,
+                StrategyInstanceId = request.instanceId ?? -1
             };
 
             var wasUpdated = await _pingService.updatePing(ping);

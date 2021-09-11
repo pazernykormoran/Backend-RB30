@@ -71,12 +71,12 @@ namespace RetireBefore30.Controllers
         {
             
             var transaction = new Transaction { 
-                Direction = request.Direction ?? -1,
-                Price = request.Price ?? -1,
-                MoneyState = request.MoneyState ?? -1,
-                Amount = request.Amount ?? -1,
-                Timestamp =  DateTimeOffset.FromUnixTimeMilliseconds(request.Timestamp?? new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds()).UtcDateTime,
-                StrategyInstanceId = request.StrategyInstanceId ?? -1
+                Direction = request.direction ?? -1,
+                Price = request.price ?? -1,
+                MoneyState = request.moneyState ?? -1,
+                Amount = request.amount ?? -1,
+                Timestamp =  DateTimeOffset.FromUnixTimeMilliseconds(request.timestamp?? new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds()).UtcDateTime,
+                StrategyInstanceId = request.instanceId ?? -1
             };
 
             await _transactionService.createTransaction(transaction);
@@ -89,13 +89,13 @@ namespace RetireBefore30.Controllers
         {
             var transaction = new Transaction
             {
-                Id = request.Id?? -1,
-                Direction = request.Direction ?? -1,
-                Price = request.Price ?? -1,
-                MoneyState = request.MoneyState ?? -1,
-                Amount = request.Amount ?? -1,
-                Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(request.Timestamp??0).UtcDateTime,
-                StrategyInstanceId = request.StrategyInstanceId ?? -1
+                Id = request.id?? -1,
+                Direction = request.direction ?? -1,
+                Price = request.price ?? -1,
+                MoneyState = request.moneyState ?? -1,
+                Amount = request.amount ?? -1,
+                Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(request.timestamp??0).UtcDateTime,
+                StrategyInstanceId = request.instanceId ?? -1
             };
 
             var wasUpdated = await _transactionService.updateTransaction(transaction);

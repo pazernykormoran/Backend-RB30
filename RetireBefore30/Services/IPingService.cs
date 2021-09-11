@@ -10,7 +10,7 @@ namespace RetireBefore30.Services
     {
         public Task<bool> createPing(Ping ping);
         public Task<Ping> getPingById(int pingId);
-        public Task<List<Ping>> getPings();
+        public Task<List<Ping>> getPings(int instanceId, DateTime start, DateTime stop);
         public Task<bool> updatePing(Ping ping);
         public Task<bool> deletePing(int pingId);
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetireBefore30.Contracts.Strategies;
+using RetireBefore30.Contracts.StrategyInstances;
 using RetireBefore30.Models;
 using RetireBefore30.Services;
 using System;

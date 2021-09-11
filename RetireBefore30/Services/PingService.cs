@@ -40,9 +40,9 @@ namespace RetireBefore30.Services
             return await _dbContext.Pings.SingleOrDefaultAsync(x => x.Id == pingId);
         }
 
-        public async Task<List<Ping>> getPings()
+        public async Task<List<Ping>> getPings(int instanceId, DateTime start, DateTime stop)
         {
-            return await _dbContext.Pings.ToListAsync();
+            return await _dbContext.Pings.Where(x => x.StrategyInstanceId == instanceId && x.Timestamp > start && x.Timestamp < stop).ToListAsync();
         }
 
         public async Task<bool> updatePing(Ping ping)
