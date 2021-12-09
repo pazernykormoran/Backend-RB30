@@ -10,7 +10,7 @@ namespace RetireBefore30.Services
     {
         public Task<bool> createTransaction(Transaction transactionToBeCreated);
         public Task<Transaction> getTransactionById(int transactionId);
-        public Task<List<Transaction>> getTransactions();
+        public Task<List<Transaction>> getTransactions(int instanceId, DateTime start, DateTime stop);
         public Task<bool> updateTransaction(Transaction transactionToBeUpdated);
         public Task<bool> deleteTransaction(int transactionId);
 

@@ -40,9 +40,9 @@ namespace RetireBefore30.Services
             return await _dbContext.Transactions.SingleOrDefaultAsync(x => x.Id == transactionId);
         }
 
-        public async Task<List<Transaction>> getTransactions()
+        public async Task<List<Transaction>> getTransactions(int instanceId, DateTime start, DateTime stop )
         {
-            return await _dbContext.Transactions.ToListAsync();
+            return await _dbContext.Transactions.Where(x => x.StrategyInstanceId == instanceId && x.Timestamp > start && x.Timestamp < stop).ToListAsync();
         }
 
         public async Task<bool> updateTransaction(Transaction transactionToBeUpdated)

@@ -28,7 +28,7 @@ namespace RetireBefore30.UnitTests.Controllers
                     Price = 11.11,
                     MoneyState = 123.33,
                     Amount = 1,
-                    Timestamp = new System.DateTime()
+                    Timestamp = System.DateTime.Now
                 },
                 new Models.Transaction
                 {
@@ -36,7 +36,7 @@ namespace RetireBefore30.UnitTests.Controllers
                     Price = 11.11,
                     MoneyState = 123.33,
                     Amount = 1,
-                    Timestamp = new System.DateTime()
+                    Timestamp = System.DateTime.Now
                 }
             };
 
