@@ -11,9 +11,12 @@ RUN dotnet restore "RetireBefore30.csproj"
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "RetireBefore30.csproj" -c Release -o /app/build
+RUN dotnet ef database update
+
 
 FROM build AS publish
 RUN dotnet publish "RetireBefore30.csproj" -c Release -o /app/publish
+
 
 FROM base AS final
 WORKDIR /app
